@@ -4,11 +4,57 @@
     <property name="title" translatable="yes">Requestor</property>
     <property name="default-width">600</property>
     <property name="default-height">400</property>
+    <child type="titlebar">
+      <object class="GtkHeaderBar" id="header">
+        <child type="title">
+          <object class="GtkStackSwitcher" id="tabs">
+            <property name="stack">stack</property>
+          </object>
+        </child>
+        <child type="start">
+          <object class="GtkMenuButton" id="gears">
+            <property name="direction">none</property>
+          </object>
+        </child>
+      </object>
+    </child>
     <child>
       <object class="GtkBox" id="content_box">
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkStack" id="stack"/>
+          <object class="GtkBox" id="request_box">
+            <property name="orientation">horizontal</property>
+
+            <!-- Request address -->
+            <child>
+              <object class="GtkEntry">
+                <property name="hexpand">True</property>
+                <property name="placeholder-text">http://localhost:8080</property>
+              </object>
+            </child>
+
+            <!-- Request type selection -->
+            <child>
+              <object class="GtkComboBoxText" id="request_type_selection">
+                <items>
+                  <item id="get">GET</item>
+                  <item id="post">POST</item>
+                  <item id="put">PUT</item>
+                  <item id="delete">DELETE</item>
+                </items>
+                <property name="active">0</property>
+                <property name="margin-start">10</property>
+              </object>
+            </child>
+
+            <!-- Request send button -->
+            <child>
+              <object class="GtkButton" id="request_type_button">
+                <property name="label">Send</property>
+              </object>
+            </child>
+          </object>
         </child>
       </object>
     </child>
