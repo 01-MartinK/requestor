@@ -28,7 +28,7 @@
 
             <!-- Request address -->
             <child>
-              <object class="GtkEntry">
+              <object class="GtkEntry" id="url_entry">
                 <property name="hexpand">True</property>
                 <property name="placeholder-text">http://localhost:8080</property>
               </object>
@@ -36,14 +36,17 @@
 
             <!-- Request type selection -->
             <child>
-              <object class="GtkComboBoxText" id="request_type_selection">
-                <items>
-                  <item id="get">GET</item>
-                  <item id="post">POST</item>
-                  <item id="put">PUT</item>
-                  <item id="delete">DELETE</item>
-                </items>
-                <property name="active">0</property>
+              <object class="GtkDropDown" id="request_type">
+                <property name="model">
+                  <object class="GtkStringList">
+                    <items>
+                      <item>GET</item>
+                      <item>POST</item>
+                      <item>PUT</item>
+                      <item>DELETE</item>
+                    </items>
+                  </object>
+                </property>
               </object>
             </child>
 
@@ -59,13 +62,13 @@
 
         <!-- Response text -->
         <child>
-          <object class="GtkText">
-            <property name="text">Response:</property>
+          <object class="GtkLabel">
+            <property name="label">Response:</property>
           </object>
         </child>
         <child>
-          <object class="GtkText" id="request_response">
-            <property name="text">Example Response</property>
+          <object class="GtkLabel" id="request_response">
+            <property name="label">Example Response</property>
           </object>
         </child>
       </object>

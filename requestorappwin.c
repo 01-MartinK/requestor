@@ -9,13 +9,25 @@ struct _RequestorAppWindow
 
   GtkWidget *stack;
   GtkWidget *gears;
+  GtkEntry *url_entry;
+  GtkDropDown *request_type;
 };
 
 G_DEFINE_TYPE(RequestorAppWindow, requestor_app_window, GTK_TYPE_APPLICATION_WINDOW);
 
-static void on_request_button_send()
+static void on_request_button_send(GtkButton *button, RequestorAppWindow *self)
 {
-  g_print("Test button function");
+  const char *url = gtk_editable_get_text(GTK_EDITABLE(self->url_entry));
+  const guint pos = gtk_drop_down_get_selected(GTK_DROP_DOWN(self->request_type));
+  // check if position in invalid
+  if (pos != GTK_INVALID_LIST_POSITION) {
+    GtkStringList *list = GTK_STRING_LIST(gtk_drop_down_get_model(GTK_DROP_DOWN(self->request_type)));
+    const char *type = gtk_string_list_get_string(list, pos);
+    g_print("Test button function: %s%s\n", type, url);
+  }
+  else {
+    g_error("[GtkDropDown] Index outside of list");
+  }
 }
 
 static void requestor_app_window_init(RequestorAppWindow *win)
@@ -38,6 +50,8 @@ static void requestor_app_window_class_init(RequestorAppWindowClass *class)
   gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS (class), RequestorAppWindow, stack);
   gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS (class), RequestorAppWindow, gears);
   gtk_widget_class_bind_template_callback(GTK_WIDGET_CLASS (class), on_request_button_send);
+  gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS (class), RequestorAppWindow, url_entry);
+  gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS (class), RequestorAppWindow, request_type);
 }
 
 RequestorAppWindow *requestor_app_window_new(RequestorApp *app)
