@@ -2,8 +2,8 @@
 <interface>
   <template class="RequestorAppWindow" parent="GtkApplicationWindow">
     <property name="title" translatable="yes">Requestor</property>
-    <property name="default-width">600</property>
-    <property name="default-height">400</property>
+    <property name="default-width">800</property>
+    <property name="default-height">600</property>
     <child type="titlebar">
       <object class="GtkHeaderBar" id="header">
         <child type="title">
@@ -62,13 +62,50 @@
 
         <!-- Response text -->
         <child>
-          <object class="GtkLabel">
-            <property name="label">Response:</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="request_response">
-            <property name="label">Example Response</property>
+          <object class="GtkBox">
+            <property name="orientation">horizontal</property>
+            <property name="margin-top">10</property>
+            <property name="margin-bottom">10</property>
+            <property name="margin-start">10</property>
+            <property name="margin-end">10</property>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label">Request Data</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <child>
+                      <object class="GtkTextView" id="request_data">
+                        <property name="wrap-mode">word</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="hexpand">True</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label">Response</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="response_text">
+                    <property name="label">Response Data</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
       </object>

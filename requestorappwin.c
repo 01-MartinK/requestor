@@ -47,6 +47,7 @@ static void requestor_app_window_class_init(RequestorAppWindowClass *class)
 {
   gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (class), "/org/mk/requestor/window.ui");
 
+  // bind gtk widgets to app properties
   gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS (class), RequestorAppWindow, stack);
   gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS (class), RequestorAppWindow, gears);
   gtk_widget_class_bind_template_callback(GTK_WIDGET_CLASS (class), on_request_button_send);
