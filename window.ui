@@ -44,7 +44,6 @@
                   <item id="delete">DELETE</item>
                 </items>
                 <property name="active">0</property>
-                <property name="margin-start">10</property>
               </object>
             </child>
 
@@ -52,8 +51,21 @@
             <child>
               <object class="GtkButton" id="request_type_button">
                 <property name="label">Send</property>
+                <signal name="clicked" handler="on_request_button_send" swapped="no" />
               </object>
             </child>
+          </object>
+        </child>
+
+        <!-- Response text -->
+        <child>
+          <object class="GtkText">
+            <property name="text">Response:</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkText" id="request_response">
+            <property name="text">Example Response</property>
           </object>
         </child>
       </object>

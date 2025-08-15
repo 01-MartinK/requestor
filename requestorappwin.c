@@ -13,6 +13,11 @@ struct _RequestorAppWindow
 
 G_DEFINE_TYPE(RequestorAppWindow, requestor_app_window, GTK_TYPE_APPLICATION_WINDOW);
 
+static void on_request_button_send()
+{
+  g_print("Test button function");
+}
+
 static void requestor_app_window_init(RequestorAppWindow *win)
 {
   GtkBuilder *builder;
@@ -32,6 +37,7 @@ static void requestor_app_window_class_init(RequestorAppWindowClass *class)
 
   gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS (class), RequestorAppWindow, stack);
   gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS (class), RequestorAppWindow, gears);
+  gtk_widget_class_bind_template_callback(GTK_WIDGET_CLASS (class), on_request_button_send);
 }
 
 RequestorAppWindow *requestor_app_window_new(RequestorApp *app)
