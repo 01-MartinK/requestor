@@ -1,3 +1,2 @@
-resources.c
-*.o
 requestorapp
+build/
