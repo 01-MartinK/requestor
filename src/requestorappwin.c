@@ -1,6 +1,7 @@
 #include <curl/curl.h>
 #include <gtk/gtk.h>
 
+#include "curlHandler.h"
 #include "requestorappwin.h"
 
 struct _RequestorAppWindow {
@@ -10,36 +11,11 @@ struct _RequestorAppWindow {
   GtkWidget *gears;
   GtkEntry *url_entry;
   GtkDropDown *request_type;
+  GtkLabel *response_text;
 };
 
 G_DEFINE_TYPE(RequestorAppWindow, requestor_app_window,
               GTK_TYPE_APPLICATION_WINDOW);
-
-static void curl_request() {
-  CURL *curl;
-  CURLcode res;
-
-  curl_global_init(CURL_GLOBAL_ALL);
-
-  curl = curl_easy_init();
-
-  if (curl) {
-    curl_easy_setopt(curl, CURLOPT_URL,
-                     "https://jsonplaceholder.typicode.com/posts/1");
-    curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
-
-    res = curl_easy_perform(curl);
-
-    if (res == CURLE_OK) {
-      long *response_code;
-      char *ct;
-      curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-      g_print("\nCurl request response: %ld\n", response_code);
-    }
-    curl_easy_cleanup(curl);
-  }
-  curl_global_cleanup();
-}
 
 static void on_request_button_send(GtkButton *button,
                                    RequestorAppWindow *self) {
@@ -52,11 +28,11 @@ static void on_request_button_send(GtkButton *button,
         gtk_drop_down_get_model(GTK_DROP_DOWN(self->request_type)));
     const char *type = gtk_string_list_get_string(list, pos);
     g_print("Test button function: %s%s\n", type, url);
+    char *body = curl_request(url);
+    gtk_label_set_text(GTK_LABEL(self->response_text), body);
   } else {
     g_error("[GtkDropDown] Index outside of list");
   }
-
-  curl_request();
 }
 
 static void requestor_app_window_init(RequestorAppWindow *win) {
@@ -86,6 +62,8 @@ static void requestor_app_window_class_init(RequestorAppWindowClass *class) {
                                        RequestorAppWindow, url_entry);
   gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS(class),
                                        RequestorAppWindow, request_type);
+  gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS(class),
+                                       RequestorAppWindow, response_text);
 }
 
 RequestorAppWindow *requestor_app_window_new(RequestorApp *app) {

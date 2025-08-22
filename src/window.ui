@@ -101,6 +101,7 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="response_text">
+                    <property name="wrap">True</property>
                     <property name="label">Response Data</property>
                   </object>
                 </child>

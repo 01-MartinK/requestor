@@ -9,12 +9,11 @@ GLIB_COMPILE_RESOURCES = $(shell $(PKGCONFIG) --variable=glib_compile_resources 
 SRC_DIR := src
 BUILD_DIR := build
 
-SRC := $(SRC_DIR)/main.c $(SRC_DIR)/requestorapp.c $(SRC_DIR)/requestorappwin.c
+SRC := $(wildcard $(SRC_DIR)/*.c)
 BUILT_SRC := $(BUILD_DIR)/resources.c
 RESOURCE_XML := $(SRC_DIR)/requestorapp.gresource.xml
 UI_FILES := $(SRC_DIR)/window.ui
-
-OBJS = $(BUILT_SRC:.c=.o) $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+OBJS := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC))
 
 # Output binary
 TARGET := $(BUILD_DIR)/requestorapp
@@ -31,6 +30,7 @@ $(BUILT_SRC): $(RESOURCE_XML) $(UI_FILES) | $(BUILD_DIR)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	$(CC) -c -o $@ $(CFLAGS) -lcurl $<
+
 
 $(BUILD_DIR)/resources.o: $(BUILD_DIR)/resources.c
 	$(CC) -c -o $@ $(CFLAGS) -lcurl $<
