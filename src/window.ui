@@ -85,8 +85,42 @@
                     <child>
                       <object class="GtkNotebook">
                         <child>
-                          <object class="GtkBox" id="headers-box">
-                            
+                          <object class="GtkListBox" id="properties_box">
+                            <child>
+                              <object class="GtkListBoxRow">
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="orientation">horizontal</property>
+                                    <child>
+                                      <object class="GtkEntry">
+                                        <property name="placeholder-text">Header</property>
+                                        <property name="hexpand">True</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry">
+                                        <property name="placeholder-text">Header Data</property>
+                                        <property name="hexpand">True</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton">
+                                        <property name="label">X</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkListBoxRow">
+                                <child>
+                                      <object class="GtkButton">
+                                        <property name="label">+</property>
+                                      </object>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                         </child>
                         <child type="tab">
@@ -105,7 +139,7 @@
                         </child>
                         <child type="tab">
                           <object class="GtkLabel">
-                            <property name="label">body</property>
+                            <property name="label">Body</property>
                           </object>
                         </child>
                         <child>
